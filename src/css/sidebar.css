@@ -1,0 +1,33 @@
+.nav-brand {
+    text-decoration: none;
+    color: rgb(132 53 222);
+    font-size: 1.6rem;
+    padding: 1rem 0rem;
+    font-family: sans-serif;
+}
+
+.nav-link {
+    color: rgb(110 117 124) !important;
+}
+
+.nav-link-active {
+    text-decoration: none;
+    color: rgb(134 84 236) !important;
+}
+
+.nav-links {
+    padding-left: 2.5rem;
+}
+
+.logout-container {
+    margin-top: 2rem;
+}
+
+.logout-container span {
+    margin-left: 3.5rem;
+    color: #da6969;
+}
+
+.logout-btn {
+    cursor: pointer;
+}

@@ -1,0 +1,28 @@
+.dashboard-cards {
+    border: none !important;
+}
+
+.status-container {
+    display: inline-block;
+}
+
+.task-date {
+    color: darkgray;
+}
+
+.task-author {
+    color: darkgray;
+}
+
+/* .form-control,
+.form-select {
+    color: #6b7680 !important;
+}
+
+.form-control:focus {
+    color: #212529 !important;
+}
+
+.form-select:focus {
+    color: #212529 !important;
+} */
