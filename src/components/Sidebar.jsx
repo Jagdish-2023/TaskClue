@@ -25,9 +25,9 @@ const Sidebar = () => {
   return (
     <div className="">
       <div>
-        <nav className="nav flex-column">
-          <NavLink className="nav-brand text-center" to="/dashboard">
-            Workasana
+        <nav className="nav flex-column py-1">
+          <NavLink className="nav-brand" to="/dashboard">
+            TaskClue
           </NavLink>
           <div className="d-flex flex-column gap-2 nav-links">
             <NavLink
@@ -57,13 +57,13 @@ const Sidebar = () => {
               Reports
             </NavLink>
           </div>
-        </nav>
 
-        <div className="logout-container">
-          <span className="logout-btn" onClick={handleLogout}>
-            Logout
-          </span>
-        </div>
+          <div className="logout-container">
+            <span className="logout-btn" onClick={handleLogout}>
+              Logout
+            </span>
+          </div>
+        </nav>
       </div>
     </div>
   );

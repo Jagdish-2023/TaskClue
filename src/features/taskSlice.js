@@ -382,12 +382,14 @@ export const taskSlice = createSlice({
     logOutUser: (state) => {
       localStorage.removeItem("userToken");
       state.storageToken = null;
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(newUserSignupAsync.fulfilled, (state, action) => {
       state.status = "success";
       state.isRegistered = true;
+      state.error = null;
     });
     builder.addCase(newUserSignupAsync.rejected, (state, action) => {
       state.status = "error";
@@ -396,6 +398,7 @@ export const taskSlice = createSlice({
 
     builder.addCase(signInuserAsync.pending, (state) => {
       state.status = "loading";
+      state.error = null;
     });
     builder.addCase(signInuserAsync.fulfilled, (state, action) => {
       const { token } = action.payload;

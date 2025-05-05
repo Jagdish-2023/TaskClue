@@ -19,19 +19,6 @@ function App() {
   const path = url.pathname;
   const navigate = useNavigate();
   const { storageToken } = useSelector((state) => state.tasks);
-  // const token = localStorage.getItem("userToken");
-
-  // useEffect(() => {
-  //   const handleChangeInLocalStorage = () => {
-  //     setToken(localStorage.getItem("userToken"));
-  //   };
-
-  //   window.addEventListener("storage", handleChangeInLocalStorage);
-
-  //   return () => {
-  //     window.removeEventListener("storage", handleChangeInLocalStorage);
-  //   };
-  // }, []);
 
   useEffect(() => {
     if (path !== "/") {
@@ -41,7 +28,7 @@ function App() {
     if (storageToken) {
       navigate("/dashboard");
     }
-  }, [storageToken]);
+  }, [storageToken, path]);
 
   return (
     <div className={path !== "/reports" ? "row vh-100 m-0" : "row m-0"}>
@@ -61,6 +48,7 @@ function App() {
 
           <section className="col-md-10">
             <Routes>
+              <Route path="/" element={<Dashboard />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/project" element={<ProjectDetails />} />
               <Route path="/task/:taskId" element={<TaskDetails />} />

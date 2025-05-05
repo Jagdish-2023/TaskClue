@@ -13,8 +13,6 @@ const LoginSignup = ({ path }) => {
 
   const [isSignup, setIsSignup] = useState(false);
   const [isAccountCreated, setIsAccountCreated] = useState(false);
-  // const [error, setError] = useState(null);
-  // const [hasToken, setHasToken] = useState(false);
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -65,7 +63,7 @@ const LoginSignup = ({ path }) => {
                 className="fs-5 text-center"
                 style={{ color: "rgb(125 7 255)" }}
               >
-                Workasana
+                TaskClue
               </p>
               {!isAccountCreated && (
                 <div>
@@ -194,7 +192,13 @@ const LoginSignup = ({ path }) => {
             )}
 
             {error && status === "error" && (
-              <p className="text-danger text-center m-0">{error}</p>
+              <p className="text-danger text-center mt-1 mb-0">{error}</p>
+            )}
+
+            {status === "loading" && (
+              <p className="text-center mt-1 mb-0">
+                <small>Please Wait...</small>
+              </p>
             )}
           </div>
         </div>
