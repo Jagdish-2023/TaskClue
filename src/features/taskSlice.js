@@ -382,6 +382,7 @@ export const taskSlice = createSlice({
     logOutUser: (state) => {
       localStorage.removeItem("userToken");
       state.storageToken = null;
+      window.location.href = "/";
       state.error = null;
     },
   },
