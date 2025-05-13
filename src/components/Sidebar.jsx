@@ -19,7 +19,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     if (!storageToken) {
-      return navigate("/");
+      navigate("/");
     }
   }, [storageToken]);
   return (

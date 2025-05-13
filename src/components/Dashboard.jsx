@@ -26,9 +26,20 @@ const Dashboard = () => {
     navigate(`/task/${taskId}`);
   };
 
+  const getProjectStatus = (projectId) => {
+    const findPendingTask = tasks.find(
+      (task) => task.project._id === projectId && task.status !== "Completed"
+    );
+    if (findPendingTask) {
+      return "In Progress";
+    }
+
+    return "Completed";
+  };
+
   useEffect(() => {
     if (!storageToken) {
-      return navigate("/");
+      navigate("/");
     }
 
     if (projects.length < 1) {
@@ -38,7 +49,7 @@ const Dashboard = () => {
     if (tasks.length < 1) {
       dispatch(fetchTasksAsync());
     }
-  }, [storageToken]);
+  }, [storageToken, projects, tasks]);
 
   return (
     <div className="p-3">
@@ -52,13 +63,13 @@ const Dashboard = () => {
                 <div>
                   <h3 className="fw-bold">Projects</h3>
                 </div>
-                <div className="ps-4">
+                {/* <div className="ps-4">
                   <select className="form-select">
                     <option value="">Filter</option>
                     <option value="In Progress">In Progress</option>
                     <option value="Completed">Completed</option>
                   </select>
-                </div>
+                </div> */}
               </div>
 
               <div>
@@ -86,7 +97,9 @@ const Dashboard = () => {
                     >
                       <div className="card-body">
                         <div className="bg-warning bg-opacity-10 status-container rounded-1 px-1">
-                          <span className="text-warning">In Progress</span>
+                          <span className="text-warning">
+                            {getProjectStatus(project._id)}
+                          </span>
                         </div>
                         <div className="mt-3">
                           <h5 className="card-title fw-bold">{project.name}</h5>
@@ -108,15 +121,15 @@ const Dashboard = () => {
             <div className="d-flex justify-content-between align-items-center">
               <div className="d-flex">
                 <div>
-                  <h3 className="fw-bold">My Tasks</h3>
+                  <h3 className="fw-bold">Tasks</h3>
                 </div>
-                <div className="ps-4">
+                {/* <div className="ps-4">
                   <select name="" id="" className="form-select">
                     <option value="">Filter</option>
                     <option value="In Progress">In Progress</option>
                     <option value="Completed">Completed</option>
                   </select>
-                </div>
+                </div> */}
               </div>
 
               <div>

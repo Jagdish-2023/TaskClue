@@ -85,14 +85,6 @@ const AddTaskModalForm = ({ openTaskModalBtnRef }) => {
     setTagsSelect([]);
     setDaysToComplete("");
     setTaskStatus("");
-
-    // if (modalRef.current) {
-    //   const modal = bootstrap.Modal.getInstance(modalRef.current);
-    //   console.log(modal);
-    //   console.log(modalRef.current);
-
-    //   modal.hide();
-    // }
   };
 
   return (

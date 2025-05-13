@@ -100,7 +100,7 @@ const Reports = () => {
 
   useEffect(() => {
     if (!storageToken) {
-      return navigate("/");
+      navigate("/");
     }
 
     dispatch(lastWeekDoneReportsAsync());
@@ -111,48 +111,51 @@ const Reports = () => {
     <div className="p-3">
       {error && <p>{error}</p>}
       {status === "loading" && <p>Loading...</p>}
-      {reports.lastWeekDone.length > 0 && (
-        <div id="lastWeekDone-barChart">
-          <h6>Total work done last week: </h6>
-          <hr />
+      {storageToken && (
+        <>
+          {reports.lastWeekDone.length > 0 && (
+            <div id="lastWeekDone-barChart">
+              <h6>Total work done last week: </h6>
+              <hr />
 
-          <div style={{ width: "50%", margin: "auto" }}>
-            <Bar
-              data={lastWeekCompletedTasksData}
-              options={lastWeekCompletedTasksOptions}
-            />
-          </div>
-        </div>
+              <div style={{ width: "50%", margin: "auto" }}>
+                <Bar
+                  data={lastWeekCompletedTasksData}
+                  options={lastWeekCompletedTasksOptions}
+                />
+              </div>
+            </div>
+          )}
+
+          {reports.closedTasksByTeam && (
+            <div>
+              <h6>Total Task completed by Team:</h6>
+              <hr />
+
+              <div style={{ width: "400px", height: "auto", margin: "auto" }}>
+                <Pie
+                  data={totalTasksCompletedByTeamData}
+                  options={totalTasksCompletedByTeamOptions}
+                />
+              </div>
+            </div>
+          )}
+
+          {reports.pendingTasks && (
+            <div>
+              <h6>Total pending Tasks:</h6>
+              <hr />
+
+              <div style={{ width: "400px", height: "auto", margin: "auto" }}>
+                <Pie
+                  data={totalPendingTasksData}
+                  options={{ responsive: true }}
+                />
+              </div>
+            </div>
+          )}
+        </>
       )}
-
-      {reports.closedTasksByTeam && (
-        <div>
-          <h6>Total Task completed by Team:</h6>
-          <hr />
-
-          <div style={{ width: "400px", height: "auto", margin: "auto" }}>
-            <Pie
-              data={totalTasksCompletedByTeamData}
-              options={totalTasksCompletedByTeamOptions}
-            />
-          </div>
-        </div>
-      )}
-
-      {reports.pendingTasks && (
-        <div>
-          <h6>Total pending Tasks:</h6>
-          <hr />
-
-          <div style={{ width: "400px", height: "auto", margin: "auto" }}>
-            <Pie data={totalPendingTasksData} options={{ responsive: true }} />
-          </div>
-        </div>
-      )}
-
-      <div>
-        <h6></h6>
-      </div>
     </div>
   );
 };

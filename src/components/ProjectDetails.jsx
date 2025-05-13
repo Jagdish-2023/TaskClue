@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
-import LoginSignup from "./LoginSignup";
+
 import AddTaskModalForm from "./AddTaskModalForm";
-// import { fetchAllProjects, fetchTags, fetchTasks } from "../axios/axios.api";
+
 import { fetchProjectsAsync, filterTasksAsync } from "../features/taskSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
@@ -65,7 +65,7 @@ const ProjectDetails = () => {
 
   useEffect(() => {
     if (!storageToken) {
-      return navigate("/");
+      navigate("/");
     }
 
     if (queryParams.project) {
@@ -78,7 +78,6 @@ const ProjectDetails = () => {
   }, [searchParams, storageToken]);
   return (
     <>
-      {/* {!storageToken && <LoginSignup path={"/project"} />} */}
       {storageToken && !queryParams?.project && (
         <div className="p-3">
           <h2>All Projects</h2>

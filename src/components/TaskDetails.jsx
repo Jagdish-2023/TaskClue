@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import Backbutton from "./BackButton";
 
 import {
   fetchTaskDetailsAsync,
@@ -38,7 +39,7 @@ const TaskDetails = () => {
 
   useEffect(() => {
     if (!storageToken) {
-      return navigate("/");
+      navigate("/");
     }
 
     if (!taskDetails._id || taskDetails._id !== taskId) {
@@ -54,8 +55,11 @@ const TaskDetails = () => {
       <div className="p-3">
         {error && <p>{error}</p>}
         {status === "loading" && <p>Loading...</p>}
-        {taskDetails?._id && (
+        {taskDetails?._id && storageToken && (
           <>
+            <div className="pb-3">
+              <Backbutton />
+            </div>
             <h3>{taskDetails.name}</h3>
             {/* <hr /> */}
             <div className="mt-5">

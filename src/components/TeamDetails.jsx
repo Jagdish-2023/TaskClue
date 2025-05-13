@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchTasksAsync, fetchTeamDetailsAsync } from "../features/taskSlice";
+import BackButton from "./BackButton";
 
 const TeamDetails = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const TeamDetails = () => {
 
   useEffect(() => {
     if (!storageToken) {
-      return navigate("/");
+      navigate("/");
     }
     if (tasks.length < 1) {
       dispatch(fetchTasksAsync());
@@ -35,8 +36,11 @@ const TeamDetails = () => {
     <div className="p-3">
       {error && <p>{error}</p>}
       {status === "loading" && <p>Loading....</p>}
-      {teamId && (
+      {teamId && storageToken && (
         <div>
+          <div className="pb-3">
+            <BackButton />
+          </div>
           <h3>{teamDetails.name}</h3>
           <p>{teamDetails.description}</p>
 

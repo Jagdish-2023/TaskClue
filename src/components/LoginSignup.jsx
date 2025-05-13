@@ -4,7 +4,7 @@ import { newUserSignupAsync, signInuserAsync } from "../features/taskSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const LoginSignup = ({ path }) => {
+const LoginSignup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { storageToken, isRegistered, error, status } = useSelector(
@@ -30,8 +30,7 @@ const LoginSignup = ({ path }) => {
   const signInUser = ({ email, password }) => {
     dispatch(signInuserAsync({ email, password }));
     if (storageToken) {
-      navigate(path ? path : "/dashboard");
-      // setHasToken(true);
+      navigate("/dashboard");
     }
   };
 
@@ -165,7 +164,7 @@ const LoginSignup = ({ path }) => {
                       setEmail("");
                       setPassword("");
                       setIsSignup((prev) => (prev ? false : true));
-                      // setError(null);
+                      setError(null);
                     }}
                   >
                     {isSignup ? "Sign In" : "Sign Up"}
