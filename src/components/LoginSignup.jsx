@@ -1,6 +1,10 @@
 import { useState } from "react";
 import "../css/loginSignup.css";
-import { newUserSignupAsync, signInuserAsync } from "../features/taskSlice";
+import {
+  newUserSignupAsync,
+  signInuserAsync,
+  removeLoginFormError,
+} from "../features/taskSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -13,6 +17,14 @@ const LoginSignup = () => {
 
   const [isSignup, setIsSignup] = useState(false);
   const [isAccountCreated, setIsAccountCreated] = useState(false);
+
+  const handleToggleAuth = () => {
+    setFullName("");
+    setEmail("");
+    setPassword("");
+    setIsSignup((prev) => (prev ? false : true));
+    dispatch(removeLoginFormError());
+  };
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -159,13 +171,7 @@ const LoginSignup = () => {
                   <button
                     type="button"
                     className="btn btn-outline-primary"
-                    onClick={() => {
-                      setFullName("");
-                      setEmail("");
-                      setPassword("");
-                      setIsSignup((prev) => (prev ? false : true));
-                      setError(null);
-                    }}
+                    onClick={handleToggleAuth}
                   >
                     {isSignup ? "Sign In" : "Sign Up"}
                   </button>
