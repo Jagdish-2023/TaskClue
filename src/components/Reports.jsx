@@ -19,6 +19,7 @@ import {
   LinearScale,
   scales,
 } from "chart.js";
+import Spinner from "./Spinner";
 
 ChartJS.register(
   Legend,
@@ -109,14 +110,16 @@ const Reports = () => {
   }, [storageToken, tasks]);
   return (
     <div className="p-3">
+      <h2>Reports</h2>
+      {/* <hr /> */}
       {error && <p>{error}</p>}
-      {status === "loading" && <p>Loading...</p>}
-      {storageToken && (
-        <>
+      {status === "loading" && <Spinner />}
+      {status !== "loading" && storageToken && (
+        <div className="mt-4">
           {reports.lastWeekDone.length > 0 && (
             <div id="lastWeekDone-barChart">
-              <h6>Total work done last week: </h6>
               <hr />
+              <h6>Total work done last week: </h6>
 
               <div style={{ width: "50%", margin: "auto" }}>
                 <Bar
@@ -129,8 +132,8 @@ const Reports = () => {
 
           {reports.closedTasksByTeam && (
             <div>
-              <h6>Total Task completed by Team:</h6>
               <hr />
+              <h6>Total Task completed by Team:</h6>
 
               <div style={{ width: "400px", height: "auto", margin: "auto" }}>
                 <Pie
@@ -143,8 +146,8 @@ const Reports = () => {
 
           {reports.pendingTasks && (
             <div>
-              <h6>Total pending Tasks:</h6>
               <hr />
+              <h6>Total pending Tasks:</h6>
 
               <div style={{ width: "400px", height: "auto", margin: "auto" }}>
                 <Pie
@@ -154,7 +157,7 @@ const Reports = () => {
               </div>
             </div>
           )}
-        </>
+        </div>
       )}
     </div>
   );

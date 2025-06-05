@@ -5,6 +5,7 @@ import AddTaskModalForm from "./AddTaskModalForm";
 import { fetchProjectsAsync, filterTasksAsync } from "../features/taskSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
+import Spinner from "./Spinner";
 
 const ProjectDetails = () => {
   const navigate = useNavigate();
@@ -81,6 +82,8 @@ const ProjectDetails = () => {
       {storageToken && !queryParams?.project && (
         <div className="p-3">
           <h2>All Projects</h2>
+          <hr />
+          {status === "loading" && <Spinner />}
           <div className="mt-4">
             <div className="row">
               {projects.map((project) => (
@@ -111,7 +114,7 @@ const ProjectDetails = () => {
       )}
       {storageToken && queryParams?.project && (
         <div className="p-3">
-          {status === "loading" && <p>Loading...</p>}
+          {status === "loading" && <Spinner />}
           {error && <p>{error}</p>}
           {filteredTasks?.project && status === "success" && (
             <>

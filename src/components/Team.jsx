@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchTasksAsync, fetchTeamsAsync } from "../features/taskSlice";
 import AddTeamModalForm from "./AddTeamModalForm";
+import Spinner from "./Spinner";
 
 const Team = () => {
   const navigate = useNavigate();
@@ -45,26 +46,30 @@ const Team = () => {
   return (
     <div className="p-3">
       {error && <p>{error}</p>}
-      {status === "loading" && <p>Loading...</p>}
+      {status === "loading" && <Spinner />}
       {storageToken && (
         <>
-          <div className="d-flex justify-content-between align-items-center">
-            <h2>Teams</h2>
-            <div>
-              <button
-                className="btn btn-primary"
-                type="button"
-                data-bs-toggle="modal"
-                data-bs-target="#teamModal"
-                ref={openTeamModalRef}
-              >
-                {" "}
-                + New Team
-              </button>
+          <div>
+            <div className="d-flex justify-content-between">
+              <h2>Teams</h2>
+
+              <div>
+                <button
+                  className="btn btn-primary"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#teamModal"
+                  ref={openTeamModalRef}
+                >
+                  {" "}
+                  + New Team
+                </button>
+              </div>
             </div>
+            <hr className="my-1" />
           </div>
           {teams.length > 0 && (
-            <div className="row mt-2">
+            <div className="row mt-4">
               {teams.map((team) => (
                 <div className="col-md-4 mb-4" key={team._id}>
                   <div

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchTasksAsync, fetchTeamDetailsAsync } from "../features/taskSlice";
 import BackButton from "./BackButton";
+import Spinner from "./Spinner";
 
 const TeamDetails = () => {
   const navigate = useNavigate();
@@ -34,13 +35,15 @@ const TeamDetails = () => {
   }, [storageToken, teams, tasks, teamId]);
   return (
     <div className="p-3">
+      {teamDetails?.name && (
+        <div className="pb-3">
+          <BackButton />
+        </div>
+      )}
       {error && <p>{error}</p>}
-      {status === "loading" && <p>Loading....</p>}
-      {teamId && storageToken && (
+      {!teamDetails?.name && <Spinner />}
+      {teamId && storageToken && teamDetails?.name && (
         <div>
-          <div className="pb-3">
-            <BackButton />
-          </div>
           <h3>{teamDetails.name}</h3>
           <p>{teamDetails.description}</p>
 

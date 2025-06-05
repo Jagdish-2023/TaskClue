@@ -7,6 +7,7 @@ import {
   fetchTaskDetailsAsync,
   updateTaskStatusAsync,
 } from "../features/taskSlice";
+import Spinner from "./Spinner";
 
 const TaskDetails = () => {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ const TaskDetails = () => {
     <>
       <div className="p-3">
         {error && <p>{error}</p>}
-        {status === "loading" && <p>Loading...</p>}
+        {status === "loading" && <Spinner />}
         {taskDetails?._id && storageToken && (
           <>
             <div className="pb-3">

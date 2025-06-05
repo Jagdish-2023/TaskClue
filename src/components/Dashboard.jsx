@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import LoginSignup from "./LoginSignup";
-// import { fetchTasks, fetchAllProjects } from "../axios/axios.api";
+import { useEffect, useRef } from "react";
+import Spinner from "./Spinner";
 import { fetchTasksAsync, fetchProjectsAsync } from "../features/taskSlice";
 import "../css/dashboard.css";
 import AddTaskModalForm from "./AddTaskModalForm";
@@ -54,7 +53,7 @@ const Dashboard = () => {
   return (
     <div className="p-3">
       {error && <p>{error}</p>}
-      {status === "loading" && <p>Loading...</p>}
+      {status === "loading" && <Spinner />}
       {storageToken && tasks.length > 0 && (
         <div>
           <section>
@@ -63,13 +62,6 @@ const Dashboard = () => {
                 <div>
                   <h3 className="fw-bold">Projects</h3>
                 </div>
-                {/* <div className="ps-4">
-                  <select className="form-select">
-                    <option value="">Filter</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Completed">Completed</option>
-                  </select>
-                </div> */}
               </div>
 
               <div>
