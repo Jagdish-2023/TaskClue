@@ -1,12 +1,6 @@
-.nav {
-    padding-left: 3.5rem !important;
-}
-
-.nav-brand {
-    text-decoration: none;
-    color: rgb(132 53 222);
-    font-size: 1.6rem;
-    font-family: sans-serif;
+.navbar-brand {
+    font-size: 1.55rem !important;
+    margin-right: 0px !important;
 }
 
 .nav-link {

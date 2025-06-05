@@ -31,22 +31,14 @@ function App() {
   }, [storageToken, path]);
 
   return (
-    <div className={path !== "/reports" ? "row vh-100 m-0" : "row m-0"}>
+    <>
       {!storageToken && <LoginSignup />}
 
       {storageToken && (
         <>
-          <section
-            className={
-              path !== "/reports"
-                ? "col-md-2 h-100 side-nav-section"
-                : "col-md-2 side-nav-section"
-            }
-          >
-            <Sidebar />
-          </section>
+          <Sidebar />
 
-          <section className="col-md-10">
+          <main className="main-section">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/dashboard" element={<Dashboard />} />
@@ -56,10 +48,10 @@ function App() {
               <Route path="/teams/:teamId" element={<TeamDetails />} />
               <Route path="/reports" element={<Reports />} />
             </Routes>
-          </section>
+          </main>
         </>
       )}
-    </div>
+    </>
   );
 }
 

@@ -23,13 +23,96 @@ const Sidebar = () => {
     }
   }, [storageToken]);
   return (
-    <div className="">
-      <div>
-        <nav className="nav flex-column py-1">
-          <NavLink className="nav-brand" to="/dashboard">
+    <>
+      <nav
+        className="navbar d-md-none"
+        style={{ backgroundColor: "rgb(239 236 249)" }}
+      >
+        <div className="container-fluid">
+          <NavLink className="navbar-brand" to="/dashboard">
             TaskClue
           </NavLink>
-          <div className="d-flex flex-column gap-2 nav-links">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasSidebar"
+            aria-controls="offcanvasSidebar"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </nav>
+
+      {/* offcanvas */}
+      <div
+        className="offcanvas offcanvas-start d-md-none"
+        tabIndex="-1"
+        id="offcanvasSidebar"
+        aria-labelledby="offcanvasSidebarLabel"
+        style={{ width: "300px" }}
+      >
+        <div className="offcanvas-header">
+          <h5 className="offcanvas-title" id="offcanvasSidebarLabel">
+            TaskClue
+          </h5>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div className="offcanvas-body">
+          <nav className="navbar-nav flex-column">
+            <NavLink
+              className={`nav-link ${
+                path === "/dashboard" && "nav-link-active"
+              }`}
+              to="/dashboard"
+            >
+              Dashboard
+            </NavLink>
+            <NavLink
+              className={`nav-link ${path === "/project" && "nav-link-active"}`}
+              to="/project"
+            >
+              Project
+            </NavLink>
+            <NavLink
+              className={`nav-link ${path === "/teams" && "nav-link-active"}`}
+              to="/teams"
+            >
+              Team
+            </NavLink>
+            <NavLink
+              className={`nav-link ${path === "/reports" && "nav-link-active"}`}
+              to="/reports"
+            >
+              Reports
+            </NavLink>
+
+            <div className="logout-container">
+              <span className="logout-btn" onClick={handleLogout}>
+                Logout
+              </span>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      {/* for md+ screen */}
+      <div
+        className="position-fixed vh-100 d-none d-md-block"
+        style={{ width: "250px", backgroundColor: "rgb(239 236 249)" }}
+      >
+        <nav className="navbar flex-column py-1">
+          <div>
+            <NavLink className="navbar-brand" to="/dashboard">
+              TaskClue
+            </NavLink>
+          </div>
+          <div className="d-flex flex-column gap-4 mt-4 nav-links">
             <NavLink
               to="/dashboard"
               className={`nav-link ${
@@ -56,16 +139,16 @@ const Sidebar = () => {
             >
               Reports
             </NavLink>
-          </div>
 
-          <div className="logout-container">
-            <span className="logout-btn" onClick={handleLogout}>
-              Logout
-            </span>
+            <div className="logout-container">
+              <span className="logout-btn" onClick={handleLogout}>
+                Logout
+              </span>
+            </div>
           </div>
         </nav>
       </div>
-    </div>
+    </>
   );
 };
 
