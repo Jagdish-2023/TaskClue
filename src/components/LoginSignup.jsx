@@ -30,6 +30,15 @@ const LoginSignup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleGuestLogin = () => {
+    const email = "john@gmail.com";
+    const password = "John@123";
+    dispatch(signInuserAsync({ email, password }));
+    setEmail("");
+    setPassword("");
+    setFullName("");
+  };
+
   const registerNewUser = ({ fullName, email, password }) => {
     dispatch(newUserSignupAsync({ name: fullName, email, password }));
 
@@ -165,16 +174,35 @@ const LoginSignup = () => {
                 )}
 
                 <div className="d-grid gap-2 mt-3">
-                  <button className="btn btn-primary">
+                  <button
+                    className="btn btn-primary"
+                    disabled={status === "loading"}
+                  >
                     {isSignup ? "Sign Up" : "Sign In"}
                   </button>
-                  <button
-                    type="button"
-                    className="btn btn-outline-primary"
-                    onClick={handleToggleAuth}
-                  >
-                    {isSignup ? "Sign In" : "Sign Up"}
-                  </button>
+                  <div className="d-flex align-items-center text-muted">
+                    <hr className="flex-grow-1" />
+                    <span className="mx-2">Or</span>
+                    <hr className="flex-grow-1" />
+                  </div>
+                  <div className="d-flex gap-1">
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary w-50"
+                      onClick={handleToggleAuth}
+                      disabled={status === "loading"}
+                    >
+                      {isSignup ? "Sign In" : "Sign Up"}
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary w-50"
+                      onClick={handleGuestLogin}
+                      disabled={status === "loading"}
+                    >
+                      Guest Login
+                    </button>
+                  </div>
                 </div>
               </form>
             )}
@@ -201,7 +229,7 @@ const LoginSignup = () => {
             )}
 
             {status === "loading" && (
-              <p className="text-center mt-1 mb-0">
+              <p className="text-center mt-2 mb-0">
                 <small>Please Wait...</small>
               </p>
             )}
