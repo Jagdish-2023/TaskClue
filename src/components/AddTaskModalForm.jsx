@@ -1,7 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Select from "react-select";
 import "../css/dashboard.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -13,13 +12,13 @@ import {
   fetchProjectsAsync,
 } from "../features/taskSlice";
 
-const AddTaskModalForm = ({ openTaskModalBtnRef }) => {
+const AddTaskModalForm = ({ handleToastSuccess }) => {
   const dispatch = useDispatch();
   const { storageToken, projects, teams, owners, tags, error, status } =
     useSelector((state) => state.tasks);
 
+  const [isTaskCreated, setIsTaskCreated] = useState(false);
   const [taskName, setTaskName] = useState("");
-
   const [projectSelect, setProjectSelect] = useState("");
   const [ownersSelect, setOwnersSelect] = useState([]);
   const [tagsSelect, setTagsSelect] = useState([]);
@@ -30,9 +29,48 @@ const AddTaskModalForm = ({ openTaskModalBtnRef }) => {
   const [ownersWithLabel, setOwnersWithLabel] = useState([]);
   const [tagsWithLabel, setTagsWithLabel] = useState([]);
 
+  const handleResetForm = () => {
+    setProjectSelect("");
+    setTaskName("");
+    setTeamSelect("");
+    setOwnersSelect([]);
+    setTagsSelect([]);
+    setTaskStatus("");
+    setDaysToComplete("");
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const newTask = {
+      project: projectSelect,
+      name: taskName,
+      team: teamSelect,
+      owners: ownersSelect.map((owner) => owner.value),
+      tags: tagsSelect.map((tag) => tag.value),
+      timeToComplete: parseInt(daysToComplete),
+      status: taskStatus,
+    };
+
+    dispatch(addNewTaskAsync(newTask));
+    setIsTaskCreated(true);
+    handleResetForm();
+  };
+
   useEffect(() => {
     if (!storageToken) {
       return;
+    }
+
+    if (isTaskCreated) {
+      if (status === "success") {
+        handleToastSuccess(true, "Task");
+      }
+      if (status === "error") {
+        handleToastSuccess(false, "Task");
+      }
+
+      setIsTaskCreated(false);
     }
 
     if (teams.length < 1) dispatch(fetchTeamsAsync());
@@ -55,37 +93,7 @@ const AddTaskModalForm = ({ openTaskModalBtnRef }) => {
       }));
       setTagsWithLabel(tagsWithLabel);
     }
-  }, [owners, tags]);
-
-  // const modalRef = useRef(null);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const newTask = {
-      project: projectSelect,
-      name: taskName,
-      team: teamSelect,
-      owners: ownersSelect.map((owner) => owner.value),
-      tags: tagsSelect.map((tag) => tag.value),
-      timeToComplete: parseInt(daysToComplete),
-      status: taskStatus,
-    };
-
-    dispatch(addNewTaskAsync(newTask));
-
-    if (openTaskModalBtnRef.current) {
-      openTaskModalBtnRef.current.focus();
-    }
-
-    setProjectSelect("");
-    setTaskName("");
-    setTeamSelect("");
-    setOwnersSelect([]);
-    setTagsSelect([]);
-    setDaysToComplete("");
-    setTaskStatus("");
-  };
+  }, [owners, tags, isTaskCreated]);
 
   return (
     <>
@@ -95,7 +103,8 @@ const AddTaskModalForm = ({ openTaskModalBtnRef }) => {
         tabIndex="-1"
         aria-labelledby="taskModalLabel"
         aria-hidden="true"
-        // ref={modalRef}
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
       >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
@@ -108,6 +117,7 @@ const AddTaskModalForm = ({ openTaskModalBtnRef }) => {
                 className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                onClick={handleResetForm}
               ></button>
             </div>
             <div className="modal-body">
@@ -223,6 +233,7 @@ const AddTaskModalForm = ({ openTaskModalBtnRef }) => {
                 type="button"
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
+                onClick={handleResetForm}
               >
                 Close
               </button>

@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addNewProjectAsync } from "../features/taskSlice";
 
-const AddProjectModalForm = ({ openProjectModalRef }) => {
+const AddProjectModalForm = ({ handleToastSuccess }) => {
   const dispatch = useDispatch();
-  const { error, status } = useSelector((state) => state.tasks);
+  const { status } = useSelector((state) => state.tasks);
+  const projectModalRef = useRef(null);
 
   const [projectName, setProjectName] = useState("");
   const [description, setDescription] = useState("");
+  const [isCreateProject, setIsCreateProject] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,11 +18,24 @@ const AddProjectModalForm = ({ openProjectModalRef }) => {
 
     setProjectName("");
     setDescription("");
-
-    if (openProjectModalRef.current) {
-      openProjectModalRef.current.focus();
-    }
+    setIsCreateProject(true);
   };
+
+  const handleResetForm = () => {
+    setProjectName("");
+    setDescription("");
+  };
+
+  useEffect(() => {
+    if (isCreateProject) {
+      if (status === "success") {
+        handleToastSuccess(true, "Project");
+      }
+      if (status === "error") {
+        handleToastSuccess(false, "Project");
+      }
+    }
+  }, [status, isCreateProject]);
 
   return (
     <>
@@ -30,6 +45,9 @@ const AddProjectModalForm = ({ openProjectModalRef }) => {
         tabIndex="-1"
         aria-labelledby="projectModalLabel"
         aria-hidden="true"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        ref={projectModalRef}
       >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
@@ -42,6 +60,7 @@ const AddProjectModalForm = ({ openProjectModalRef }) => {
                 className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                onClick={handleResetForm}
               ></button>
             </div>
             <div className="modal-body">
@@ -80,6 +99,7 @@ const AddProjectModalForm = ({ openProjectModalRef }) => {
                 type="button"
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
+                onClick={handleResetForm}
               >
                 Close
               </button>

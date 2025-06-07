@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import Spinner from "./Spinner";
 import { fetchTasksAsync, fetchProjectsAsync } from "../features/taskSlice";
 import "../css/dashboard.css";
@@ -6,6 +6,7 @@ import AddTaskModalForm from "./AddTaskModalForm";
 import AddProjectModalForm from "./AddProjectModalForm";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -13,9 +14,6 @@ const Dashboard = () => {
   const { error, status, projects, tasks, storageToken } = useSelector(
     (state) => state.tasks
   );
-
-  const openTaskModalBtnRef = useRef(null);
-  const openProjectModalRef = useRef(null);
 
   const handleProjectCard = (projectId) => {
     navigate(`/project?project=${projectId}`);
@@ -34,6 +32,16 @@ const Dashboard = () => {
     }
 
     return "Completed";
+  };
+
+  const handleToastSuccess = (isSuccess, modalName) => {
+    if (isSuccess) {
+      toast.success(`${modalName} created successfully!`, {
+        progressClassName: "bg-success",
+      });
+    } else {
+      toast.error(`Failed to create ${modalName}`);
+    }
   };
 
   useEffect(() => {
@@ -60,7 +68,7 @@ const Dashboard = () => {
             <div className="d-flex justify-content-between align-items-center">
               <div className="d-flex">
                 <div>
-                  <h3 className="fw-bold">Projects</h3>
+                  <h4 className="fw-bold">Projects</h4>
                 </div>
               </div>
 
@@ -70,7 +78,6 @@ const Dashboard = () => {
                   type="button"
                   data-bs-toggle="modal"
                   data-bs-target="#projectModal"
-                  ref={openProjectModalRef}
                 >
                   + New Project
                 </button>
@@ -113,7 +120,7 @@ const Dashboard = () => {
             <div className="d-flex justify-content-between align-items-center">
               <div className="d-flex">
                 <div>
-                  <h3 className="fw-bold">Tasks</h3>
+                  <h4 className="fw-bold">Tasks</h4>
                 </div>
                 {/* <div className="ps-4">
                   <select name="" id="" className="form-select">
@@ -130,7 +137,6 @@ const Dashboard = () => {
                   type="button"
                   data-bs-toggle="modal"
                   data-bs-target="#taskModal"
-                  ref={openTaskModalBtnRef}
                 >
                   + New Task
                 </button>
@@ -199,8 +205,8 @@ const Dashboard = () => {
       )}
 
       {/* <!-- Modal --> */}
-      <AddTaskModalForm openTaskModalBtnRef={openTaskModalBtnRef} />
-      <AddProjectModalForm openProjectModalRef={openProjectModalRef} />
+      <AddTaskModalForm handleToastSuccess={handleToastSuccess} />
+      <AddProjectModalForm handleToastSuccess={handleToastSuccess} />
     </div>
   );
 };

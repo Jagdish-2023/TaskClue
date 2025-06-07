@@ -1,9 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
 import Dashboard from "./components/Dashboard";
 import Sidebar from "./components/Sidebar";
@@ -39,6 +40,12 @@ function App() {
           <Sidebar />
 
           <main className="main-section">
+            <ToastContainer
+              position="top-center"
+              autoClose={4000}
+              newestOnTop
+              closeOnClick
+            />
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/dashboard" element={<Dashboard />} />
