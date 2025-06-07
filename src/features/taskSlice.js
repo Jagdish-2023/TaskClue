@@ -12,7 +12,7 @@ const removeLocalStorageToken = () => {
 
 export const fetchTasksAsync = createAsyncThunk("tasks/fetch", async () => {
   try {
-    const response = await axios.get("http://localhost:3000/tasks", {
+    const response = await axios.get("https://taskclue-be.vercel.app/tasks", {
       headers: getAuthHeaders(),
     });
     return response.data;
@@ -30,7 +30,7 @@ export const filterTasksAsync = createAsyncThunk(
   "filteredTasks/fetch",
   async (queryParams) => {
     try {
-      const response = await axios.get("http://localhost:3000/tasks", {
+      const response = await axios.get("https://taskclue-be.vercel.app/tasks", {
         headers: getAuthHeaders(),
         params: queryParams,
       });
@@ -53,9 +53,12 @@ export const fetchTaskDetailsAsync = createAsyncThunk(
   "task/fetch",
   async (taskId) => {
     try {
-      const response = await axios.get(`http://localhost:3000/task/${taskId}`, {
-        headers: getAuthHeaders(),
-      });
+      const response = await axios.get(
+        `https://taskclue-be.vercel.app/task/${taskId}`,
+        {
+          headers: getAuthHeaders(),
+        }
+      );
 
       return response.data;
     } catch (error) {
@@ -74,7 +77,7 @@ export const updateTaskStatusAsync = createAsyncThunk(
   async (taskInfo) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/task",
+        "https://taskclue-be.vercel.app/task",
         taskInfo,
         {
           headers: getAuthHeaders(),
@@ -96,9 +99,12 @@ export const fetchProjectsAsync = createAsyncThunk(
   "projects/fetch",
   async () => {
     try {
-      const response = await axios.get("http://localhost:3000/projects", {
-        headers: getAuthHeaders(),
-      });
+      const response = await axios.get(
+        "https://taskclue-be.vercel.app/projects",
+        {
+          headers: getAuthHeaders(),
+        }
+      );
       return response.data;
     } catch (error) {
       if (error.response?.status === 401) {
@@ -112,7 +118,7 @@ export const fetchProjectsAsync = createAsyncThunk(
 
 export const fetchTeamsAsync = createAsyncThunk("teams/fetch", async () => {
   try {
-    const response = await axios.get("http://localhost:3000/teams", {
+    const response = await axios.get("https://taskclue-be.vercel.app/teams", {
       headers: getAuthHeaders(),
     });
     return response.data;
@@ -127,7 +133,7 @@ export const fetchTeamsAsync = createAsyncThunk("teams/fetch", async () => {
 
 export const fetchOwnersAsync = createAsyncThunk("users/fetch", async () => {
   try {
-    const response = await axios.get("http://localhost:3000/users", {
+    const response = await axios.get("https://taskclue-be.vercel.app/users", {
       headers: getAuthHeaders(),
     });
     return response.data;
@@ -142,7 +148,7 @@ export const fetchOwnersAsync = createAsyncThunk("users/fetch", async () => {
 
 export const fetchTagsAsync = createAsyncThunk("tags/fetch", async () => {
   try {
-    const response = await axios.get("http://localhost:3000/tags", {
+    const response = await axios.get("https://taskclue-be.vercel.app/tags", {
       headers: getAuthHeaders(),
     });
     return response.data;
@@ -160,7 +166,7 @@ export const newUserSignupAsync = createAsyncThunk(
   async (newUser) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/auth/signup",
+        "https://taskclue-be.vercel.app/auth/signup",
         newUser
       );
 
@@ -181,7 +187,7 @@ export const signInuserAsync = createAsyncThunk(
   async (loginCredentials) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/auth/login",
+        "https://taskclue-be.vercel.app/auth/login",
         loginCredentials
       );
 
@@ -203,7 +209,7 @@ export const addNewProjectAsync = createAsyncThunk(
   async (projectData) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/projects",
+        "https://taskclue-be.vercel.app/projects",
         projectData,
         { headers: getAuthHeaders() }
       );
@@ -227,7 +233,7 @@ export const addNewTaskAsync = createAsyncThunk(
   async (taskData) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/tasks",
+        "https://taskclue-be.vercel.app/tasks",
         taskData,
         {
           headers: getAuthHeaders(),
@@ -253,7 +259,7 @@ export const addNewTeamAsync = createAsyncThunk(
   async (teamData) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/teams",
+        "https://taskclue-be.vercel.app/teams",
         teamData,
         {
           headers: getAuthHeaders(),
@@ -279,9 +285,12 @@ export const fetchTeamDetailsAsync = createAsyncThunk(
   "team/fetch",
   async (teamId) => {
     try {
-      const response = await axios.get(`http://localhost:3000/team/${teamId}`, {
-        headers: getAuthHeaders(),
-      });
+      const response = await axios.get(
+        `https://taskclue-be.vercel.app/team/${teamId}`,
+        {
+          headers: getAuthHeaders(),
+        }
+      );
       return response.data;
     } catch (error) {
       if (error.status === 401) {
@@ -298,7 +307,7 @@ export const lastWeekDoneReportsAsync = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/report/last-week",
+        "https://taskclue-be.vercel.app/report/last-week",
         {
           headers: getAuthHeaders(),
         }
@@ -319,7 +328,7 @@ export const totalTasksClosedByTeamAsync = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/report/closed-tasks",
+        "https://taskclue-be.vercel.app/report/closed-tasks",
         {
           headers: getAuthHeaders(),
         }
@@ -339,9 +348,12 @@ export const totalRemainingDaysOfTasksAsync = createAsyncThunk(
   "tasks-pending/reports",
   async () => {
     try {
-      const response = await axios.get("http://localhost:3000/report/pending", {
-        headers: getAuthHeaders(),
-      });
+      const response = await axios.get(
+        "https://taskclue-be.vercel.app/report/pending",
+        {
+          headers: getAuthHeaders(),
+        }
+      );
       return response.data;
     } catch (error) {
       if (error.status === 401) {
