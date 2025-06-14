@@ -1,6 +1,6 @@
 # Taskclue
 
-A task management app where users can create projects, assign tasks to teams, set deadlines, and organize work using tags.
+A task management app where users can create projects, assign tasks to teams, set deadlines, and organize work using tags. Reports section to display the Tasks statistics using various Charts options.
 
 ## Live demo
 [Run](https://taskclue.vercel.app)
